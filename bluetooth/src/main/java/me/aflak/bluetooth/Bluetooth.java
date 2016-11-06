@@ -1,6 +1,5 @@
 package me.aflak.bluetooth;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -33,10 +32,10 @@ public class Bluetooth {
     private CommunicationCallback communicationCallback=null;
     private DiscoveryCallback discoveryCallback=null;
 
-    private Activity activity;
+    private Context context;
 
     public Bluetooth(Activity activity){
-        this.activity=activity;
+        this.context =activity;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
@@ -174,12 +173,12 @@ public class Bluetooth {
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
 
-        activity.registerReceiver(mReceiverScan, filter);
+        context.registerReceiver(mReceiverScan, filter);
         bluetoothAdapter.startDiscovery();
     }
 
     public void pair(BluetoothDevice device){
-        activity.registerReceiver(mPairReceiver, new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED));
+        context.registerReceiver(mPairReceiver, new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED));
         devicePair=device;
         try {
             Method method = device.getClass().getMethod("createBond", (Class[]) null);
