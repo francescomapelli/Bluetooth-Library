@@ -34,8 +34,8 @@ public class Bluetooth {
 
     private Context context;
 
-    public Bluetooth(Activity activity){
-        this.context =activity;
+    public Bluetooth(Context context){
+        this.context = context;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
